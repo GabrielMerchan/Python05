@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import Any
+from typing import Any, Protocol
 import abc
 
 
@@ -107,6 +107,11 @@ class LogProcessor(DataProcessor):
                 self._counter += 1
 
 
+class ExportPlugin(Protocol):
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        pass
+
+
 class DataStream():
     def __init__(self):
         self._processors = []
@@ -146,6 +151,9 @@ class DataStream():
                 self._counters[2] = i._counter
                 print(f"Log Processor: total {self._counters[2]} items"
                       " processed, remaining {len(i._data)} on processor")
+
+    def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
+        pass
 
 
 if __name__ == "__main__":
