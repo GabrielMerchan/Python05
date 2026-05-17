@@ -19,7 +19,7 @@ class DataProcessor(abc.ABC):
         try:
             return self._data.pop(0)
         except IndexError:
-            return(-1, '')
+            return (-1, '')
 
 
 class NumericProcessor(DataProcessor):
@@ -141,7 +141,7 @@ class DataStream():
             print(f"{e}")
 
     def print_processors_stats(self) -> None:
-        print ("=== DataStream statistics ===")
+        print("=== DataStream statistics ===")
         for i in self._processors:
             if i.__class__.__name__ == "NumericProcessor":
                 self._counters[0] = i._counter
@@ -165,7 +165,7 @@ class DataStream():
                     break
                 exp_items.append(item)
             plugin.process_output(exp_items)
-            
+
 
 class CSVexportPlugin():
     def process_output(self, data: list[tuple[int, str]]) -> None:
@@ -179,7 +179,6 @@ class JSONexportPlugin():
         print("JSON Output:")
         values = [f'"item_{value[0]}": "{value[1]}"' for value in data]
         print(f"{{ {', '.join(values)} }}")
-
 
 
 if __name__ == "__main__":
@@ -206,7 +205,7 @@ if __name__ == "__main__":
     processor.output_pipeline(3, csv)
     processor.print_processors_stats()
 
-    lista =  [21, ['I love AI', 'LLMs are wonderful', 'Stay healthy'], 
+    lista = [21, ['I love AI', 'LLMs are wonderful', 'Stay healthy'],
              [{'log_level': 'ERROR', 'log_message': '500 server crash'},
               {'log_level': 'NOTICE',
                'log_message': 'Certificate expires in 10 days'}],
